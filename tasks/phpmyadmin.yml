@@ -1,0 +1,13 @@
+- name: Install phpmyadmin
+  apt: pkg=phpmyadmin state=present
+
+- name: Install apache config file
+  copy: src=phpmyadmin.conf dest=/etc/apache2/conf-available/
+  notify: reload apache2
+
+- name: Activate configuration
+  command:
+    a2enconf phpmyadmin.conf
+    creates=/etc/apache2/conf-enabled/phpmyadmin.conf
+  notify: reload apache2
+
