@@ -1,6 +1,6 @@
 galaxy_info:
   author: Yannik Sembritzki
-  description: This role sets up phpmyadmin from the system repo with Yannik.php-fpm and Yannik.apache.
+  description: This role sets up phpmyadmin from the system repo for all vhosts with Yannik.php-fpm and Yannik.apache.
   license: GPLv2
 
   min_ansible_version: 2.0
