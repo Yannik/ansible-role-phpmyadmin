@@ -1,0 +1,34 @@
+# Check sources.list
+# grep -r --include '*.list' '^deb ' /etc/apt/sources.list /etc/apt/sources.list.d/ | grep -q ' buster-backports'
+# Check apt cache
+# apt-cache policy | grep -E '^[ ]+release' |grep -q 'a=buster-backports'
+
+- name: Check if buster-backports is setup
+  shell: apt-cache policy | grep -E '^[ ]+release' |grep -q 'a=buster-backports'
+  failed_when: False
+  changed_when: False
+  register: buster_backports_exists
+
+- name: Setup buster backports
+  lineinfile:
+    create: yes
+    path: /etc/apt/sources.list.d/buster-backports.list
+    line: "deb http://ftp.debian.org/debian buster-backports main"
+  register: buster_backports
+  when: buster_backports_exists.rc == 1
+
+#- name: Purge tmux if it already exists
+#  apt: name=tmux state=absent
+#  when: buster_backports|changed
+
+- name: Update apt if buster-backports has changed
+  apt: update_cache=yes
+  when: buster_backports is changed
+
+- name: Install latest phpmyadmin from backports
+  apt:
+    name: phpmyadmin
+    state: latest
+    default_release: buster-backports
+  when: buster_backports is changed
+
