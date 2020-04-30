@@ -30,4 +30,5 @@
     name: phpmyadmin
     state: latest
     default_release: buster-backports
+    install_recommends: no
 
