@@ -5,6 +5,14 @@
 - name: Install phpmyadmin
   apt: pkg=phpmyadmin state=present
 
+- name: Set permissions
+  file:
+    path: "{{ item }}"
+    owner: web-phpmyadmin
+  with_items:
+    - /var/lib/phpmyadmin/blowfish_secret.inc.php
+    - /etc/phpmyadmin/config-db.php
+
 - name: Install apache config file
   copy: src=phpmyadmin.conf dest=/etc/apache2/conf-available/
   notify: reload apache2
