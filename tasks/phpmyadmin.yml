@@ -1,3 +1,6 @@
+- name: Install dbconfig-mysql
+  apt: pkg=dbconfig-mysql state=present
+
 - include_tasks: "buster-backports.yml"
   when: ansible_distribution == "Debian" and
         ansible_distribution_release == 'buster'
