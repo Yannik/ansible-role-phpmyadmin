@@ -17,10 +17,6 @@
   register: buster_backports
   when: buster_backports_exists.rc == 1
 
-#- name: Purge tmux if it already exists
-#  apt: name=tmux state=absent
-#  when: buster_backports|changed
-
 - name: Update apt if buster-backports has changed
   apt: update_cache=yes
   when: buster_backports is changed
