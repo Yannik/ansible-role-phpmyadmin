@@ -1,0 +1,3 @@
+phpmyadmin_global_config: true
+phpmyadmin_user: web-phpmyadmin
+phpmyadmin_fpm_socket: phpmyadmin

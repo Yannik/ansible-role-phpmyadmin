@@ -11,19 +11,20 @@
 - name: Set permissions
   file:
     path: "{{ item }}"
-    owner: web-phpmyadmin
+    owner: "{{ phpmyadmin_user }}"
   with_items:
     - /var/lib/phpmyadmin/blowfish_secret.inc.php
     - /etc/phpmyadmin/config-db.php
     - /var/lib/phpmyadmin/tmp/
 
 - name: Install apache config file
-  copy: src=phpmyadmin.conf dest=/etc/apache2/conf-available/
+  template: src=phpmyadmin.conf dest=/etc/apache2/conf-available/
   notify: reload apache2
 
 - name: Activate configuration
   command:
     a2enconf phpmyadmin.conf
     creates=/etc/apache2/conf-enabled/phpmyadmin.conf
+  when: phpmyadmin_global_config
   notify: reload apache2
 
