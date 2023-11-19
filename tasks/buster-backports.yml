@@ -13,7 +13,7 @@
   lineinfile:
     create: yes
     path: /etc/apt/sources.list.d/buster-backports.list
-    line: "deb http://ftp.debian.org/debian buster-backports main"
+    line: "deb http://ftp.de.debian.org/debian buster-backports main"
   register: buster_backports
   when: buster_backports_exists.rc == 1
 
